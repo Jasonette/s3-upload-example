@@ -13,6 +13,7 @@ var template = {
           "success": {
             "type": "$network.upload",
             "options": {
+              "content-type": "{{$result['content-type']}}",
               "storage": {
                 "type": "s3",
                 "bucket": "fm.ethan.jason",

@@ -81,7 +81,7 @@ var template = {
                 "{{#if db && db.length > 0}}": {
                   "{{#each db}}": {
                     "type": "image",
-                    "url": "{{this}}",
+                    "url": "{{url}}",
                     "style": {
                       "height": "200"
                     }

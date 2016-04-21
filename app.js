@@ -44,6 +44,11 @@ var template = {
         }
       },
       "templates": {
+        "nav": {
+          "style": {
+            "theme": "dark"
+          }
+        },
         "body": {
           "sections": [{
             "header": {

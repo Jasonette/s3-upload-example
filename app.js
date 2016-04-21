@@ -54,6 +54,7 @@ var template = {
         },
         "body": {
           "sections": [{
+            "type": "horizontal",
             "header": {
               "type": "vertical",
               "style": {
@@ -77,7 +78,7 @@ var template = {
                     "type": "image",
                     "url": "{{this}}",
                     "style": {
-                      "width": "100%"
+                      "width": "100"
                     }
                   }
                 }

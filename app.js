@@ -47,14 +47,19 @@ var template = {
         "body": {
           "sections": [{
             "header": {
-              "type": "label",
-              "text": "Pull",
+              "type": "vertical",
               "style": {
-                "padding": "20",
                 "align": "center",
-                "font": "HelveticaNeue-Bold",
-                "size": "40"
-              }
+                "padding": "20"
+              },
+              "components": [{
+                "type": "image",
+                "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+                "style": {
+                  "z_index": "-1",
+                  "width": "100"
+                }
+              }]
             },
             "items": [
               {

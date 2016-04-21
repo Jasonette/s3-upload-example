@@ -83,7 +83,7 @@ var template = {
                     "type": "image",
                     "url": "{{this}}",
                     "style": {
-                      "width": "100"
+                      "height": "200"
                     }
                   }
                 }

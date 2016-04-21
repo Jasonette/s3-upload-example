@@ -6,6 +6,7 @@ var db = [];
 var template = {
   "$result": {
     "head": {
+      "title": "image sample",
       "actions": {
         "$pull": {
           "type": "$media.camera",

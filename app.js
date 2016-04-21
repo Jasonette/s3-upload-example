@@ -49,7 +49,7 @@ var template = {
 };
 
 app.get('/sign_url', function (req, res) {
-    aws.config.update({region: "us-west-2", endpoint: "https://s3.us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
+    aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
     var s3 = new aws.S3();
 
     var s3_params = {

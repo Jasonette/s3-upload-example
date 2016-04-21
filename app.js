@@ -17,7 +17,7 @@ var template = {
               "storage": {
                 "type": "s3",
                 "bucket": "fm.ethan.jason",
-                "path": "/",
+                "path": "",
                 "sign_url": "https://imagejason.herokuapp.com/sign_url"
               }
             },

@@ -32,7 +32,7 @@ var template = {
                 "method": "post",
                 "data": {
                   "bucket": "fm.ethan.jason",
-                  "path": "",
+                  "path": "/",
                   "filename": "{{$result.filename}}"
                 }
               },

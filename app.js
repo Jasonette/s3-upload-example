@@ -50,7 +50,8 @@ var template = {
               "type": "vertical",
               "style": {
                 "align": "center",
-                "padding": "20"
+                "padding": "20",
+                "z_index": "-1"
               },
               "components": [{
                 "type": "image",

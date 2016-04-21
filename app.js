@@ -52,8 +52,8 @@ app.get('/sign_url', function (req, res) {
     aws.config.update({accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
     var s3 = new aws.S3();
     var s3_params = {
-        Bucket: req.query.bucket
-        Key: req.query.path
+        Bucket: req.query.bucket,
+        Key: req.query.path,
         Expires: 60,
         ContentType: req.query['content-type'],
         ACL: 'public-read'

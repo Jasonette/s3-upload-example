@@ -80,11 +80,14 @@ var template = {
               {
                 "{{#if db && db.length > 0}}": {
                   "{{#each db}}": {
-                    "type": "image",
-                    "url": "{{url}}",
+                    "type": "vertical",
                     "style": {
                       "width": "200"
-                    }
+                    },
+                    "components": [{
+                      "type": "image",
+                      "url": "{{url}}"
+                    }]
                   }
                 }
               }, { 

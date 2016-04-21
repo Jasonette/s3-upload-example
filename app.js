@@ -50,7 +50,7 @@ var template = {
                   "width": "100%"
                 }
               }
-            }]
+            }
           }]
         }
       }

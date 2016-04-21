@@ -63,11 +63,7 @@ app.get('/sign_url', function (req, res) {
             console.log(err);
         }
         else{
-            var return_data = {
-                signed_request: data,
-                url: 'https://'+S3_BUCKET+'.s3.amazonaws.com/'+req.query.file_name
-            };
-            
+            console.log("data = ", data);
             res.json({"$result": data});
         }
     });

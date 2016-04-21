@@ -55,8 +55,7 @@ app.get('/sign_url', function (req, res) {
         Bucket: req.query.bucket,
         Key: req.query.path,
         Expires: 60,
-        ContentType: req.query['content-type'],
-        ACL: 'public-read'
+        ContentType: req.query['content-type']
     };
     s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){

@@ -1,6 +1,9 @@
 var express = require('express');
 var aws = require('aws-sdk');
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var db = [];
 
@@ -8,45 +11,60 @@ var template = {
   "$result": {
     "head": {
       "title": "image sample",
+      "data": db,
       "actions": {
         "$pull": {
           "type": "$media.camera",
           "success": {
             "type": "$network.upload",
             "options": {
-              "content-type": "{{$result['content-type']}}",
-              "storage": {
-                "type": "s3",
-                "bucket": "fm.ethan.jason",
-                "path": "",
-                "sign_url": "https://imagejason.herokuapp.com/sign_url"
-              }
+              "type": "s3",
+              "bucket": "fm.ethan.jason",
+              "path": "",
+              "sign_url": "https://imagejason.herokuapp.com/sign_url"
             },
             "success": {
-              "type": "$widget.banner",
+              "type": "$network.request",
               "options": {
-                "title": "Url",
-                "description": "{{$result.filename}}"
+                "url": "https://imagejason.herokuapp.com/post",
+                "method": "post",
+                "data": {
+                  "url": "{{$result.filename}}"
+                }
+              },
+              "success": {
+                "type": "$reload"
               }
             }
           }
         }
+      },
+      "templates": {
+        "body": {
+          "sections": [{
+            "items": {
+              "{{#each db}}": {
+                "type": "image",
+                "url": "{{this}}",
+                "style": {
+                  "width": "100%"
+                }
+              }
+            }]
+          }]
+        }
       }
-    },
-    "body": {
-      "sections": [{
-        "items": [{
-          "type": "label",
-          "text": "Pull me",
-          "style": {
-            "padding": "20",
-            "align": "center"
-          }
-        }]
-      }]
     }
   }
 };
+
+app.post('/post', function(req,res){
+    var url = req.body.url;
+    db.push(url);
+    template["$result"]["head"]["data"] = db;
+    console.log("NEW TEMPLATE = ", template);
+    res.json(template);
+});
 
 app.get('/sign_url', function (req, res) {
     aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});

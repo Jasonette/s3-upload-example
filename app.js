@@ -57,6 +57,9 @@ var template = {
         "body": {
           "sections": [{
             "type": "horizontal",
+            "style": {
+              "height": "200"
+            },
             "header": {
               "type": "vertical",
               "style": {

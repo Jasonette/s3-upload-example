@@ -1,4 +1,5 @@
 var express = require('express');
+var aws = require('aws-sdk');
 var app = express();
 
 var db = [];
@@ -48,21 +49,28 @@ var template = {
 };
 
 app.get('/sign_url', function (req, res) {
-  var sig = require('amazon-s3-url-signer');
-  console.log("req = ", req);
-  console.log("query = ", req.query);
-  
-  console.log("params = ", req.body);
-  var bucket = sig.urlSigner(process.env.S3_KEY, process.env.S3_SECRET);
-  var url = bucket.getUrl('PUT', req.query.path, req.query.bucket, 20); //url expires in 20 minutes
-
-/*
-  var bucket1 = sig.urlSigner('my key', 'my secret');
-
-  var url1 = bucket1.getUrl('GET', 'somefile.png', 'mybucket', 10); //url expires in 10 minutes
-  var url2 = bucket2.getUrl('PUT', '/somedir/somefile.png', 'mybucketonotheraccount', 10); //url expires in 100 minutes
-  */
-  res.json({"$result": url});
+    aws.config.update({accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
+    var s3 = new aws.S3();
+    var s3_params = {
+        Bucket: req.query.bucket
+        Key: req.query.path
+        Expires: 60,
+        ContentType: req.query['content-type'],
+        ACL: 'public-read'
+    };
+    s3.getSignedUrl('putObject', s3_params, function(err, data){
+        if(err){
+            console.log(err);
+        }
+        else{
+            var return_data = {
+                signed_request: data,
+                url: 'https://'+S3_BUCKET+'.s3.amazonaws.com/'+req.query.file_name
+            };
+            
+            res.json({"$result": data});
+        }
+    });
 });
 app.get('/', function (req, res) {
   res.json(template);

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "amazon-s3-url-signer": "0.0.7",
+    "aws-sdk": "^2.3.4",
     "express": "^4.13.4"
   }
 }

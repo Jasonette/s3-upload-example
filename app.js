@@ -86,6 +86,9 @@ var template = {
                     },
                     "components": [{
                       "type": "image",
+                      "style": {
+                        "width": "200"
+                      },
                       "url": "{{url}}"
                     }]
                   }

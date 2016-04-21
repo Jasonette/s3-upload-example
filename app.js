@@ -11,7 +11,9 @@ var template = {
   "$result": {
     "head": {
       "title": "image sample",
-      "data": db,
+      "data": {
+        "db": db
+      },
       "actions": {
         "$pull": {
           "type": "$media.camera",
@@ -77,7 +79,7 @@ var template = {
 app.post('/post', function(req,res){
     var url = req.body.url;
     db.push(url);
-    template["$result"]["head"]["data"] = db;
+    template["$result"]["head"]["data"]["db"] = db;
     console.log("NEW TEMPLATE = ", template);
     res.json(template);
 });

@@ -55,11 +55,11 @@ var template = {
           }
         },
         "body": {
+          "style": {
+            "border": "none"
+          },
           "sections": [{
             "type": "horizontal",
-            "style": {
-              "height": "200"
-            },
             "header": {
               "type": "vertical",
               "style": {
@@ -83,7 +83,7 @@ var template = {
                     "type": "image",
                     "url": "{{url}}",
                     "style": {
-                      "height": "200"
+                      "width": "200"
                     }
                   }
                 }

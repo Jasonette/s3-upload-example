@@ -52,15 +52,19 @@ var template = {
                 "size": "40"
               }
             },
-            "items": {
-              "{{#each db}}": {
-                "type": "image",
-                "url": "{{this}}",
-                "style": {
-                  "width": "100%"
+            [{
+              "{{#if db && db.length > 0}}": {
+                "items": {
+                  "{{#each db}}": {
+                    "type": "image",
+                    "url": "{{this}}",
+                    "style": {
+                      "width": "100%"
+                    }
+                  }
                 }
               }
-            }
+            }]
           }]
         }
       }

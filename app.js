@@ -121,7 +121,7 @@ var initDB = function(){
 
 var initServer = function(){
 
-  var reload = function(){
+  var reload = function(res){
     Post.find({}).exec(function(err, result) {
       if (!err) {
         // handle result
@@ -138,7 +138,7 @@ var initServer = function(){
     var url = "https://s3-us-west-2.amazonaws.com/" + req.body.bucket + req.body.path + req.body.filename;
     var post = new Post({url: url});
     post.save(function (err) {if (err) console.log ('Error on save!')});
-    reload();
+    reload(res);
   });
 
   app.get('/sign_url', function (req, res) {
@@ -163,7 +163,7 @@ var initServer = function(){
       });
   });
   app.get('/', function (req, res) {
-    reload();
+    reload(res);
   });
 
   app.listen(process.env.PORT || 3000);

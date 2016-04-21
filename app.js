@@ -17,6 +17,9 @@ var template = {
       "actions": {
         "$pull": {
           "type": "$media.camera",
+          "options": {
+            "quality": "0.4"
+          },
           "success": {
             "type": "$network.upload",
             "options": {

@@ -5,14 +5,16 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var db = [];
+var mongoose = require ("mongoose"); // The reason for this demo.
+
+
 
 var template = {
   "$result": {
     "head": {
       "title": "image sample",
       "data": {
-        "db": db
+        "db": []
       },
       "actions": {
         "$pull": {
@@ -93,38 +95,76 @@ var template = {
   }
 };
 
-app.post('/post', function(req,res){
-console.log("req.body = ", req.body);
-    var url = "https://s3-us-west-2.amazonaws.com/" + req.body.bucket + req.body.path + req.body.filename;
-    db.push(url);
-    template["$result"]["head"]["data"]["db"] = db;
-    console.log("NEW TEMPLATE = ", template);
-    res.json(template);
-});
 
-app.get('/sign_url', function (req, res) {
-    aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
-    var s3 = new aws.S3();
 
-    var s3_params = {
-        Bucket: req.query.bucket,
-        Key: req.query.path,
-        Expires: 60,
-        ACL: "public-read",
-        ContentType: req.query['content-type']
-    };
-    s3.getSignedUrl('putObject', s3_params, function(err, data){
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log("data = ", data);
-            res.json({"$result": data});
-        }
+var Post;
+var initDB = function(){
+  var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/HelloMongoose';
+  var theport = process.env.PORT || 5000;
+
+  mongoose.connect(uristring, function (err, res) {
+    if (err) {
+      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+      console.log ('Succeeded connected to: ' + uristring);
+    }
+  });
+  var postSchema = new mongoose.Schema({
+    url: String
+  });
+  Post = mongoose.model('posts', postSchema);
+};
+
+
+var initServer = function(){
+
+  var reload = function(){
+    Post.find({}).exec(function(err, result) {
+      if (!err) {
+        // handle result
+        console.log("RESULT = ", result);
+        template["$result"]["head"]["data"]["db"] = result;
+        res.json(template);
+      } else {
+        // error handling
+      };
     });
-});
-app.get('/', function (req, res) {
-  res.json(template);
-});
+  };
 
-app.listen(process.env.PORT || 3000);
+  app.post('/post', function(req,res){
+    var url = "https://s3-us-west-2.amazonaws.com/" + req.body.bucket + req.body.path + req.body.filename;
+    var post = new Post({url: url});
+    post.save(function (err) {if (err) console.log ('Error on save!')});
+    reload();
+  });
+
+  app.get('/sign_url', function (req, res) {
+      aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
+      var s3 = new aws.S3();
+
+      var s3_params = {
+          Bucket: req.query.bucket,
+          Key: req.query.path,
+          Expires: 60,
+          ACL: "public-read",
+          ContentType: req.query['content-type']
+      };
+      s3.getSignedUrl('putObject', s3_params, function(err, data){
+          if(err){
+              console.log(err);
+          }
+          else{
+              console.log("data = ", data);
+              res.json({"$result": data});
+          }
+      });
+  });
+  app.get('/', function (req, res) {
+    reload();
+  });
+
+  app.listen(process.env.PORT || 3000);
+};
+
+initDB();
+initServer();

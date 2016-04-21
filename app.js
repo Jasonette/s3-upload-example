@@ -31,7 +31,9 @@ var template = {
                 "url": "https://imagejason.herokuapp.com/post",
                 "method": "post",
                 "data": {
-                  "url": "{{$result.filename}}"
+                  "bucket": "fm.ethan.jason",
+                  "path": "",
+                  "filename": "{{$result.filename}}"
                 }
               },
               "success": {
@@ -78,7 +80,7 @@ var template = {
 
 app.post('/post', function(req,res){
 console.log("req.body = ", req.body);
-    var url = req.body.url;
+    var url = "https://s3.amazonaws.com/" + req.body.bucket + req.body.path + req.body.filename;
     db.push(url);
     template["$result"]["head"]["data"]["db"] = db;
     console.log("NEW TEMPLATE = ", template);

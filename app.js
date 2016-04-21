@@ -52,9 +52,9 @@ var template = {
                 "size": "40"
               }
             },
-            [{
-              "{{#if db && db.length > 0}}": {
-                "items": {
+            "items": [
+              {
+                "{{#if db && db.length > 0}}": {
                   "{{#each db}}": {
                     "type": "image",
                     "url": "{{this}}",
@@ -63,8 +63,10 @@ var template = {
                     }
                   }
                 }
+              }, { 
+                "{{#else}}": []
               }
-            }]
+            ]
           }]
         }
       }

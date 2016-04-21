@@ -77,6 +77,7 @@ var template = {
 };
 
 app.post('/post', function(req,res){
+console.log("req.body = ", req.body);
     var url = req.body.url;
     db.push(url);
     template["$result"]["head"]["data"]["db"] = db;

@@ -42,6 +42,16 @@ var template = {
       "templates": {
         "body": {
           "sections": [{
+            "header": {
+              "type": "label",
+              "text": "Pull",
+              "style": {
+                "padding": "20",
+                "align": "center",
+                "font": "HelveticaNeue-Bold",
+                "size": "40"
+              }
+            },
             "items": {
               "{{#each db}}": {
                 "type": "image",

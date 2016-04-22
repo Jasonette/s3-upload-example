@@ -86,13 +86,13 @@ var template = {
                   "{{#each db}}": {
                     "type": "vertical",
                     "style": {
-                      "width": "200",
-                      "height": "300"
+                      "width": "150",
+                      "height": "250"
                     },
                     "components": [{
                       "type": "image",
                       "style": {
-                        "width": "200"
+                        "width": "150"
                       },
                       "url": "{{url}}"
                     }]
@@ -133,7 +133,7 @@ var initDB = function(){
 var initServer = function(){
 
   var reload = function(res){
-    Post.find({}).exec(function(err, result) {
+    Post.find({}).sort("_id").exec(function(err, result) {
       if (!err) {
         // handle result
         console.log("RESULT = ", result);

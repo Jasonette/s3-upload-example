@@ -76,7 +76,6 @@ var template = {
             "header": {
               "type": "vertical",
               "style": {
-                "background": "#ff0000",
                 "align": "center",
                 "padding": "20",
                 "z_index": "-1"
@@ -123,7 +122,7 @@ var template = {
             ]
           }, {
             "items": [{
-              "{{#if $get.selected}": {
+              "{{#if $get.selected}}": {
                 "type": "image",
                 "url": "{{$get.selected}}",
                 "style": {

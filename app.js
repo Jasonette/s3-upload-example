@@ -126,11 +126,10 @@ var template = {
               {
                 "{{#if $get.selected}}": {
                   "items": [{
-                      "type": "image",
-                      "url": "{{$get.selected}}",
-                      "style": {
-                        "width": "100%"
-                      }
+                    "type": "image",
+                    "url": "{{$get.selected}}",
+                    "style": {
+                      "width": "100%"
                     }
                   }]
                 }

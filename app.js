@@ -239,7 +239,7 @@ var template = {
                         "height": "250"
                       },
                       "href": {
-                        "type": "SafariView",
+                        "view": "SafariView",
                         "url": "{{url}}"
                       },
                       "components": [{

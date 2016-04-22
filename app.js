@@ -98,7 +98,7 @@ var template = {
                   "url": "{{$get.selected}}",
                   "style": {
                     "z_index": "-1",
-                    "width": "100$"
+                    "width": "100%"
                   }
                 }
               }
@@ -115,7 +115,7 @@ var template = {
                     "action": {
                       "type": "$set",
                       "options": {
-                        "selected": "{{_id}}"
+                        "selected": "{{url}}"
                       },
                       "success": {
                         "type": "$render"

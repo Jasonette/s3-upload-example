@@ -73,38 +73,23 @@ var template = {
               "spacing": "0",
               "padding": "0"
             },
-            "header": [
-              {
-                "{{#if !$get.selected}}": {
-                  "type": "vertical",
-                  "style": {
-                    "background": "#ff0000",
-                    "align": "center",
-                    "padding": "20",
-                    "z_index": "-1"
-                  },
-                  "components": [{
-                    "type": "image",
-                    "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
-                    "style": {
-                      "z_index": "-1",
-                      "width": "100"
-                    }
-                  }]
+            "header": {
+              "type": "vertical",
+              "style": {
+                "background": "#ff0000",
+                "align": "center",
+                "padding": "20",
+                "z_index": "-1"
+              },
+              "components": [{
+                "type": "image",
+                "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+                "style": {
+                  "z_index": "-1",
+                  "width": "100"
                 }
-              }, 
-              {
-                "{{#else}}": {
-                  "type": "image",
-                  "url": "{{$get.selected}}",
-                  "style": {
-                    "background": "#0000ff",
-                    "z_index": "-1",
-                    "width": "100%"
-                  }
-                }
-              }
-            ],
+              }]
+            },
             "items": [
               {
                 "{{#if db && db.length > 0}}": {
@@ -136,7 +121,17 @@ var template = {
                 "{{#else}}": []
               }
             ]
-          }]
+          }, {
+            "items": [{
+              "{{#if $get.selected}": {
+                "type": "image",
+                "url": "{{$get.selected}}",
+                "style": {
+                  "width": "100%"
+                }
+              }
+            }]
+          }
         }
       }
     }

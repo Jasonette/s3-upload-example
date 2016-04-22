@@ -17,6 +17,12 @@ var template = {
         "db": []
       },
       "actions": {
+        "$load": {
+          "type": "$set",
+          "options": {
+            "selected": ""
+          }
+        },
         "$pull": {
           "type": "$media.camera",
           "options": {
@@ -64,22 +70,36 @@ var template = {
               "spacing": "0",
               "padding": "0"
             },
-            "header": {
-              "type": "vertical",
-              "style": {
-                "align": "center",
-                "padding": "20",
-                "z_index": "-1"
-              },
-              "components": [{
-                "type": "image",
-                "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
-                "style": {
-                  "z_index": "-1",
-                  "width": "100"
+            "header": [
+              {
+                "{{#if $get.selected && $get.selected.length > 0}}": {
+                  "type": "vertical",
+                  "style": {
+                    "align": "center",
+                    "padding": "20",
+                    "z_index": "-1"
+                  },
+                  "components": [{
+                    "type": "image",
+                    "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+                    "style": {
+                      "z_index": "-1",
+                      "width": "100"
+                    }
+                  }]
                 }
-              }]
-            },
+              }, 
+              {
+                "{{#else}}": {
+                  "type": "image",
+                  "url": "{{$get.selected}}",
+                  "style": {
+                    "z_index": "-1",
+                    "width": "100$"
+                  }
+                }
+              }
+            ],
             "items": [
               {
                 "{{#if db && db.length > 0}}": {
@@ -88,6 +108,15 @@ var template = {
                     "style": {
                       "width": "150",
                       "height": "250"
+                    },
+                    "action": {
+                      "type": "$set",
+                      "options": {
+                        "selected": "{{_id}}"
+                      },
+                      "success": {
+                        "type": "$render"
+                      }
                     },
                     "components": [{
                       "type": "image",

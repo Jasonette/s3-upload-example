@@ -21,6 +21,9 @@ var template = {
           "type": "$set",
           "options": {
             "selected": ""
+          },
+          "success": {
+            "type": "$render"
           }
         },
         "$pull": {

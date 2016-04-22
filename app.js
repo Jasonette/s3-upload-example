@@ -72,7 +72,7 @@ var template = {
             },
             "header": [
               {
-                "{{#if $get.selected && $get.selected.length > 0}}": {
+                "{{#if !$get.selected}}": {
                   "type": "vertical",
                   "style": {
                     "align": "center",

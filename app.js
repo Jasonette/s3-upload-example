@@ -133,7 +133,7 @@ var initDB = function(){
 var initServer = function(){
 
   var reload = function(res){
-    Post.find({}).sort("_id").exec(function(err, result) {
+    Post.find({}).sort({_id: -1}).exec(function(err, result) {
       if (!err) {
         // handle result
         console.log("RESULT = ", result);

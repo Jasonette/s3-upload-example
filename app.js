@@ -81,6 +81,10 @@ var template = {
                 "{{#if db && db.length > 0}}": {
                   "{{#each db}}": {
                     "type": "vertical",
+                    "style": {
+                      "width": "200",
+                      "height": "300"
+                    },
                     "components": [{
                       "type": "image",
                       "style": {

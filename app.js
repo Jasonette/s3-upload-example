@@ -83,6 +83,8 @@ var template = {
                     "type": "vertical",
                     "style": {
                       "width": "200",
+                      "spacing": "0",
+                      "padding": "0",
                       "height": "300"
                     },
                     "components": [{

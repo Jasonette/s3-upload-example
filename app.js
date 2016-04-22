@@ -60,6 +60,10 @@ var template = {
           },
           "sections": [{
             "type": "horizontal",
+            "style": {
+              "spacing": "0",
+              "padding": "0"
+            },
             "header": {
               "type": "vertical",
               "style": {
@@ -83,8 +87,6 @@ var template = {
                     "type": "vertical",
                     "style": {
                       "width": "200",
-                      "spacing": "0",
-                      "padding": "0",
                       "height": "300"
                     },
                     "components": [{

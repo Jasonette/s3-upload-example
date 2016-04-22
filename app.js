@@ -9,6 +9,7 @@ var mongoose = require ("mongoose"); // The reason for this demo.
 
 
 
+/*
 var template = {
   "$result": {
     "head": {
@@ -140,6 +141,121 @@ var template = {
                 }
               }
             ]
+          ]
+        }
+      }
+    }
+  }
+};
+*/
+var template = {
+  "$result": {
+    "head": {
+      "title": "image sample",
+      "data": {
+        "db": []
+      },
+      "actions": {
+        "$load": {
+          "type": "$set",
+          "options": {
+            "selected": ""
+          },
+          "success": {
+            "type": "$render"
+          }
+        },
+        "$pull": {
+          "type": "$media.camera",
+          "options": {
+            "quality": "0.4"
+          },
+          "success": {
+            "type": "$network.upload",
+            "options": {
+              "type": "s3",
+              "bucket": "fm.ethan.jason",
+              "path": "",
+              "sign_url": "https://imagejason.herokuapp.com/sign_url"
+            },
+            "success": {
+              "type": "$network.request",
+              "options": {
+                "url": "https://imagejason.herokuapp.com/post",
+                "method": "post",
+                "data": {
+                  "bucket": "fm.ethan.jason",
+                  "path": "/",
+                  "filename": "{{$result.filename}}"
+                }
+              },
+              "success": {
+                "type": "$reload"
+              }
+            }
+          }
+        }
+      },
+      "templates": {
+        "nav": {
+          "style": {
+            "theme": "dark"
+          }
+        },
+        "body": {
+          "style": {
+            "border": "none"
+          },
+          "sections": [
+            {
+              "type": "horizontal",
+              "style": {
+                "spacing": "0",
+                "padding": "0"
+              },
+              "header": {
+                "type": "vertical",
+                "style": {
+                  "align": "center",
+                  "padding": "20",
+                  "z_index": "-1"
+                },
+                "components": [{
+                  "type": "image",
+                  "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+                  "style": {
+                    "z_index": "-1",
+                    "width": "100"
+                  }
+                }]
+              },
+              "items": [
+                {
+                  "{{#if db && db.length > 0}}": {
+                    "{{#each db}}": {
+                      "type": "vertical",
+                      "style": {
+                        "width": "150",
+                        "height": "250"
+                      },
+                      "href": {
+                        "type": "SafariView",
+                        "url": "{{url}}"
+                      },
+                      "components": [{
+                        "type": "image",
+                        "style": {
+                          "width": "150"
+                        },
+                        "url": "{{url}}"
+                      }]
+                    }
+                  }
+                }, { 
+                  "{{#else}}": []
+                }
+              ]
+            }
           ]
         }
       }

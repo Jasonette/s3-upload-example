@@ -67,70 +67,81 @@ var template = {
           "style": {
             "border": "none"
           },
-          "sections": [{
-            "type": "horizontal",
-            "style": {
-              "spacing": "0",
-              "padding": "0"
-            },
-            "header": {
-              "type": "vertical",
+          "sections": [
+            {
+              "type": "horizontal",
               "style": {
-                "align": "center",
-                "padding": "20",
-                "z_index": "-1"
+                "spacing": "0",
+                "padding": "0"
               },
-              "components": [{
-                "type": "image",
-                "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+              "header": {
+                "type": "vertical",
                 "style": {
-                  "z_index": "-1",
-                  "width": "100"
-                }
-              }]
-            },
-            "items": [
-              {
-                "{{#if db && db.length > 0}}": {
-                  "{{#each db}}": {
-                    "type": "vertical",
-                    "style": {
-                      "width": "150",
-                      "height": "250"
-                    },
-                    "action": {
-                      "type": "$set",
-                      "options": {
-                        "selected": "{{url}}"
-                      },
-                      "success": {
-                        "type": "$render"
-                      }
-                    },
-                    "components": [{
-                      "type": "image",
-                      "style": {
-                        "width": "150"
-                      },
-                      "url": "{{url}}"
-                    }]
+                  "align": "center",
+                  "padding": "20",
+                  "z_index": "-1"
+                },
+                "components": [{
+                  "type": "image",
+                  "url": "https://d30y9cdsu7xlg0.cloudfront.net/png/126349-200.png",
+                  "style": {
+                    "z_index": "-1",
+                    "width": "100"
                   }
+                }]
+              },
+              "items": [
+                {
+                  "{{#if db && db.length > 0}}": {
+                    "{{#each db}}": {
+                      "type": "vertical",
+                      "style": {
+                        "width": "150",
+                        "height": "250"
+                      },
+                      "action": {
+                        "type": "$set",
+                        "options": {
+                          "selected": "{{url}}"
+                        },
+                        "success": {
+                          "type": "$render"
+                        }
+                      },
+                      "components": [{
+                        "type": "image",
+                        "style": {
+                          "width": "150"
+                        },
+                        "url": "{{url}}"
+                      }]
+                    }
+                  }
+                }, { 
+                  "{{#else}}": []
                 }
-              }, { 
-                "{{#else}}": []
+              ]
+            }, 
+            [
+              {
+                "{{#if $get.selected}}": {
+                  "items": [{
+                      "type": "image",
+                      "url": "{{$get.selected}}",
+                      "style": {
+                        "width": "100%"
+                      }
+                    }
+                  }]
+                }
+              },
+              {
+                "{{#else}}": {
+                  "items": []
+                }
               }
             ]
-          }, {
-            "items": [{
-              "{{#if $get.selected}}": {
-                "type": "image",
-                "url": "{{$get.selected}}",
-                "style": {
-                  "width": "100%"
-                }
-              }
-            }]
-          }]
+          ]
         }
       }
     }

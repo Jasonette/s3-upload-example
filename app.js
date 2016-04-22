@@ -78,6 +78,7 @@ var template = {
                 "{{#if !$get.selected}}": {
                   "type": "vertical",
                   "style": {
+                    "background": "#ff0000",
                     "align": "center",
                     "padding": "20",
                     "z_index": "-1"
@@ -97,6 +98,7 @@ var template = {
                   "type": "image",
                   "url": "{{$get.selected}}",
                   "style": {
+                    "background": "#0000ff",
                     "z_index": "-1",
                     "width": "100%"
                   }

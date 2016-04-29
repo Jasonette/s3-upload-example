@@ -149,7 +149,7 @@ var template = {
 };
 */
 var template = {
-  "$result": {
+  "$jason": {
     "head": {
       "title": "image sample",
       "data": {
@@ -186,7 +186,7 @@ var template = {
                 "data": {
                   "bucket": "fm.ethan.jason",
                   "path": "/",
-                  "filename": "{{$result.filename}}"
+                  "filename": "{{$jason.filename}}"
                 }
               },
               "success": {
@@ -291,7 +291,7 @@ var initServer = function(){
       if (!err) {
         // handle result
         console.log("RESULT = ", result);
-        template["$result"]["head"]["data"]["db"] = result;
+        template["$jason"]["head"]["data"]["db"] = result;
         res.json(template);
       } else {
         // error handling
@@ -323,7 +323,7 @@ var initServer = function(){
           }
           else{
               console.log("data = ", data);
-              res.json({"$result": data});
+              res.json({"$jason": data});
           }
       });
   });

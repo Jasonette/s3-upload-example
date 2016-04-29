@@ -327,6 +327,18 @@ var initServer = function(){
           }
       });
   });
+  app.get('/db', function(req, res){
+    Post.find({}).sort({_id: -1}).exec(function(err, result) {
+      if (!err) {
+        // handle result
+        console.log("RESULT = ", result);
+        template["$jason"]["head"]["data"]["db"] = result;
+        res.json({"response": template["$jason"]["head"]["data"]});
+      } else {
+        // error handling
+      };
+    });
+  });
   app.get('/', function (req, res) {
     reload(res);
   });

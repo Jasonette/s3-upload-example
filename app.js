@@ -175,6 +175,7 @@ var template = {
             "options": {
               "type": "s3",
               "bucket": "fm.ethan.jason",
+              "data": "{{$jason.data}}",
               "path": "",
               "sign_url": "https://imagejason.herokuapp.com/sign_url"
             },

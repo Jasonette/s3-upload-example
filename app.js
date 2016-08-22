@@ -209,7 +209,6 @@ var template = {
           },
           "sections": [
             {
-              "type": "horizontal",
               "style": {
                 "spacing": "0",
                 "padding": "0"
@@ -234,22 +233,11 @@ var template = {
                 {
                   "{{#if db && db.length > 0}}": {
                     "{{#each db}}": {
-                      "type": "vertical",
+                      "type": "image",
                       "style": {
-                        "width": "150",
-                        "height": "250"
+                        "width": "100%"
                       },
-                      "href": {
-                        "view": "SafariView",
-                        "url": "{{url}}"
-                      },
-                      "components": [{
-                        "type": "image",
-                        "style": {
-                          "width": "150"
-                        },
-                        "url": "{{url}}"
-                      }]
+                      "url": "{{url}}"
                     }
                   }
                 }, { 

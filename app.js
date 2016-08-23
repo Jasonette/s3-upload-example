@@ -33,7 +33,9 @@ var mongoose = require ("mongoose"); // The reason for this demo.
 var jason = {
   "error": {
     "$jason": {
-      "head": "Error",
+      "head": {
+        "title": "Error"
+      },
       "body": {
         "layers": [{
           "type": "label",

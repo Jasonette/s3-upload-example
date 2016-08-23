@@ -193,6 +193,7 @@ var init = {
         if (!err) {
           jason["success"]["$jason"]["head"]["data"]["db"] = result;
           //res.json(jason["success"]);
+          console.log("jason[error]=", jason["error"]);
           res.json(jason["error"]);
         } else {
           // error handling

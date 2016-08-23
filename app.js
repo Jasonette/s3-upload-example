@@ -41,7 +41,7 @@ var jason = {
           "type": "label",
           "text": "Something went wrong",
           "style": {
-            "top": "50%-50",
+            "top": "50%",
             "left": "50%-100",
             "width": "200",
             "background": "rgba(0,0,0,0.3)",

@@ -194,15 +194,12 @@ var init = {
     var reload = function(res){
       Post.find({}).sort({_id: -1}).exec(function(err, result) {
         // Fetch all items in the DB
-        if (!err) {
-          jason["success"]["$jason"]["head"]["data"]["db"] = result;
-          //res.json(jason["success"]);
-          console.log("jason[error]=", jason["error"]);
+        if (err) {
           res.json(jason["error"]);
         } else {
-          // error handling
-          res.json(jason["error"]);
-        };
+          jason["success"]["$jason"]["head"]["data"]["db"] = result;
+          res.json(jason["success"]);
+        }
       });
     };
 
@@ -238,13 +235,12 @@ var init = {
     });
     app.get('/db', function(req, res){
       Post.find({}).sort({_id: -1}).exec(function(err, result) {
-        if (!err) {
+        if (err) {
+          res.json({"response": []});
+        } else {
           jason["$jason"]["head"]["data"]["db"] = result;
           res.json({"response": jason["success"]["$jason"]["head"]["data"]});
-        } else {
-          // error handling
-          res.json({"response": []});
-        };
+        }
       });
     });
     app.get('/', function (req, res) {

@@ -44,7 +44,7 @@ var jason = {
             "top": "50%-50",
             "left": "50%-100",
             "width": "200",
-            "background": "#000000",
+            "background": "rgba(0,0,0,0.3)",
             "align": "center",
             "height": "100",
             "font": "Avenir",

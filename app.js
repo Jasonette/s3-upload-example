@@ -104,9 +104,13 @@ var jason = {
           }
         },
         "templates": {
-          "nav": {
-            "style": {
-              "theme": "dark"
+          "header": {
+            "menu": {
+              "text": "View JSON",
+              "href": {
+                "url": "https://imagejason.herokuapp.com",
+                "view": "web"
+              }
             }
           },
           "body": {
@@ -204,7 +208,12 @@ var init = {
     };
 
     // ROUTING
+    app.get('/', function (req, res) {
+      // Display all pics
+      reload(res);
+    });
     app.post('/post', function(req,res){
+      // Add a post entry to DB after the upload finishes
       var url = "https://s3-us-west-2.amazonaws.com/" + req.body.bucket + req.body.path + req.body.filename;
       var post = new Post({url: url});
       post.save(function (err) {
@@ -215,25 +224,27 @@ var init = {
       reload(res);
     });
     app.get('/sign_url', function (req, res) {
-        aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
-        var s3 = new aws.S3();
-        var s3_params = {
-            Bucket: req.query.bucket,
-            Key: req.query.path,
-            Expires: 60,
-            ACL: "public-read",
-            ContentType: req.query['content-type']
-        };
-        s3.getSignedUrl('putObject', s3_params, function(err, data){
-            if(err) {
-                console.log(err);
-                res.json(jason["error"]);
-            } else {
-                res.json({"$jason": data});
-            }
-        });
+      // Return an s3 signed url so the client can directly upload to S3 through the signed url
+      aws.config.update({region: "us-west-2", endpoint: "https://s3-us-west-2.amazonaws.com", accessKeyId: process.env.S3_KEY, secretAccessKey: process.env.S3_SECRET});
+      var s3 = new aws.S3();
+      var s3_params = {
+        Bucket: req.query.bucket,
+        Key: req.query.path,
+        Expires: 60,
+        ACL: "public-read",
+        ContentType: req.query['content-type']
+      };
+      s3.getSignedUrl('putObject', s3_params, function(err, data){
+        if(err) {
+          console.log(err);
+          res.json(jason["error"]);
+        } else {
+          res.json({"$jason": data});
+        }
+      });
     });
     app.get('/db', function(req, res){
+      // Convenience method for returning only the DB content (Without the Jason markup)
       Post.find({}).sort({_id: -1}).exec(function(err, result) {
         if (err) {
           res.json({"response": []});
@@ -242,9 +253,6 @@ var init = {
           res.json({"response": jason["success"]["$jason"]["head"]["data"]});
         }
       });
-    });
-    app.get('/', function (req, res) {
-      reload(res);
     });
 
     app.listen(process.env.PORT || 3000);

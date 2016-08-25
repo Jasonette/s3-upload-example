@@ -195,7 +195,16 @@ var init = {
   * 
   **********************************************************************/
   server: function(){
-    var reload = function(res){
+
+    var respond = function(res){
+      /**********************************************************************
+      *
+      * 1. Fetches the entire DB
+      * 2. Fills in the "data" portion of the template with DB
+      * 3. Returns the response
+      * 
+      **********************************************************************/
+      
       Post.find({}).sort({_id: -1}).exec(function(err, result) {
         // Fetch all items in the DB
         if (err) {
@@ -210,7 +219,7 @@ var init = {
     // ROUTING
     app.get('/', function (req, res) {
       // Display all pics
-      reload(res);
+      respond(res);
     });
     app.post('/post', function(req,res){
       // Add a post entry to DB after the upload finishes
@@ -221,7 +230,7 @@ var init = {
           console.log ('Error on save!');
         }
       });
-      reload(res);
+      respond(res);
     });
     app.get('/sign_url', function (req, res) {
       // Return an s3 signed url so the client can directly upload to S3 through the signed url
@@ -240,17 +249,6 @@ var init = {
           res.json(jason["error"]);
         } else {
           res.json({"$jason": data});
-        }
-      });
-    });
-    app.get('/db', function(req, res){
-      // Convenience method for returning only the DB content (Without the Jason markup)
-      Post.find({}).sort({_id: -1}).exec(function(err, result) {
-        if (err) {
-          res.json({"response": []});
-        } else {
-          jason["$jason"]["head"]["data"]["db"] = result;
-          res.json({"response": jason["success"]["$jason"]["head"]["data"]});
         }
       });
     });

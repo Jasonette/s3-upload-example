@@ -106,10 +106,30 @@ var jason = {
         "templates": {
           "header": {
             "menu": {
-              "text": "View JSON",
-              "href": {
-                "url": "https://imagejason.herokuapp.com",
-                "view": "web"
+              "text": "View Full Source",
+              "action": {
+                "type": "$util.picker",
+                "options": {
+                  "items": [{
+                    "text": "View JSON",
+                    "action": {
+                      "type": "$href",
+                      "options": {
+                        "url": "https://imagejason.herokuapp.com",
+                        "view": "web"
+                      }
+                    }
+                  }, {
+                    "text": "View full backend code",
+                    "action": {
+                      "type": "$href",
+                      "options": {
+                        "url": "https://github.com/Jasonette/s3-upload-example/blob/master/app.js",
+                        "view": "web"
+                      }
+                    }
+                  }]
+                }
               }
             }
           },

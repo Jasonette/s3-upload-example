@@ -7,6 +7,8 @@ This example is a server-side code that:
 1. Takes a photo using [$media.camera](actions.md#mediacamera).
 2. Then it uploads it to S3 using [$network.upload](actions.md#networkupload).
 
+You can try the demo by playing [https://imagejason.herokuapp.com](https://imagejason.herokuapp.com) on Jasonette. [Learn more](http://www.jasonette.com/beta/quickstart)
+
 ## How the code works
 
 1. The server initializes a Mongo DB instance via `init.DB()`, and then starts an [express](https://expressjs.com) web server via `init.server()`.

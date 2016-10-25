@@ -1,10 +1,8 @@
 # Upload to S3 example
-This repository contains a JSON express server to handle everything related to photo upload.
+This repository contains a JSON express server, which is both the backend AND the frontend for a [Jasonette app](https://www.jasonette.com) that lets you upload photos to S3.
 
 ## Demo
-
-You can try the demo by playing [https://imagejason.herokuapp.com](https://imagejason.herokuapp.com) on Jasonette. [Learn more](http://www.jasonette.com/beta/quickstart)
-
+You can try the demo by playing [https://imagejason.herokuapp.com](https://imagejason.herokuapp.com) on Jasonette. [Learn more](http://www.jasonette.com)
 
 ## App workflow overview
 Here's an overview of how this app works (both client side and server side).

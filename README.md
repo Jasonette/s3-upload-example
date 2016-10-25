@@ -1,15 +1,41 @@
 # Upload to S3 example
+This repository contains a JSON express server to handle everything related to photo upload.
 
-## What this does
-
-This example is a server-side code that:
-
-1. Takes a photo using [$media.camera](actions.md#mediacamera).
-2. Then it uploads it to S3 using [$network.upload](actions.md#networkupload).
+## Demo
 
 You can try the demo by playing [https://imagejason.herokuapp.com](https://imagejason.herokuapp.com) on Jasonette. [Learn more](http://www.jasonette.com/beta/quickstart)
 
-## How the code works
+
+## App workflow overview
+Here's an overview of how this app works (both client side and server side).
+
+(Note: Remember that on Jasonette, there's no code you need to write on the client side, you're basically building the client interface on the server. The JSON response is your app)
+
+1. When the app starts, it starts an express server to accept web requests.
+2. The server also connects to a mongodb instance 
+3. When a Jasonette client makes a `GET` request to the root url (`/`), the server responds with a JSON markup.
+4. The Jasonette client will interpret the JSON and render a native app on its side, which allows the user to take a photo by swiping down.
+5. After the user takes a photo, it makes a `GET` request to `/sign_url` to get an S3 signed url.
+6. The server generates and returns a signed url.
+7. The Jasonette client uploads the photo directly to S3 using the signed url.
+8. After the upload is over, it makes a `POST` request to the express server's `/post` endpoint, with the s3 image url.
+9. The express server stores the url to the mongodb it's connected to.
+10. Then it returns a JSON which contains the list of all the images in the DB.
+11. The Jasonette client displays the result.
+
+## How the JSON markup works
+
+The response JSON markup describes how the view will be displayed, as well as actions.
+
+There are a couple of impoertant [actions](https://jasonette.github.io/documentation/actions) being used here.
+
+1. Takes a photo using [$media.camera](https://jasonette.github.io/documentation/actions#mediacamera).
+2. Then it makes a request to our server's `/sign_url` endpoint using [$network.request](https://jasonette.github.io/documentation/actions#networkrequest).
+3. Then it uploads it to the S3 signed url using [$network.upload](https://jasonette.github.io/documentation/actions#networkupload).
+4. After the upload is over, it makes a `POST` request to our server's `/post` endpoint with the S3 filename, and the server stores it, so it can be displayed.
+
+
+## How the server-side code works
 
 1. The server initializes a Mongo DB instance via `init.DB()`, and then starts an [express](https://expressjs.com) web server via `init.server()`.
 2. When a Jasonette client hits the root URL (`/`), the server returns the JASON Markup, and the client renders it accordingly.

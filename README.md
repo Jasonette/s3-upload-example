@@ -25,7 +25,7 @@ Here's an overview of how this app works (both client side and server side).
 
 The response JSON markup describes how the view will be displayed, as well as actions.
 
-There are a couple of impoertant [actions](https://jasonette.github.io/documentation/actions) being used here.
+There are a couple of important [actions](https://jasonette.github.io/documentation/actions) being used here.
 
 1. Takes a photo using [$media.camera](https://jasonette.github.io/documentation/actions#mediacamera).
 2. Then it makes a request to our server's `/sign_url` endpoint using [$network.request](https://jasonette.github.io/documentation/actions#networkrequest).
